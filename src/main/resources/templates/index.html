@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmnls:th="http://www.thymeleaf.org">
+    <head>
+        <title>Control de Clientes</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <header th:replace="layout/layout :: header"/>
+
+        <a th:href="@{/agregar}" th:text="#{index.crear}">crear</a>
+
+        <br/>
+
+        <div th:if="${personas != null and !personas.empty}">
+
+            <br/>
+
+            <table border="1">
+                <tr>
+                    <th th:text="#{index.nombre}">Nombre</th>
+                    <th th:text="#{index.apellido}">Apellidos</th>
+                    <th th:text="#{index.email}">Email</th>
+                    <th th:text="#{index.telefono}">Telefono</th>
+                    <th th:text="#{index.operaciones}">Operaciones</th>
+                </tr>
+
+                <tr th:each="persona : ${personas}">
+                    <td th:text="${persona.nombre}">Nombre</td>
+                    <td th:text="${persona.apellido}">Apellidos</td>
+                    <td th:text="${persona.email}">Email</td>
+                    <td th:text="${persona.telefono}">Telefono</td>
+                    <td><a th:href="@{/editar/} + ${persona.idPersona}" th:text="#{index.editar}" >Editar</a> / <a th:href="@{/eliminar/} + ${persona.idPersona}" th:text="#{index.eliminar}" >Eliminar</a> </td>
+                </tr>
+            </table>
+        </div>
+
+        <div th:if="${personas == null or personas.empty}">
+            <h1 th:text="#{index.vacio}">No hay datos</h1>
+        </div>
+
+        <footer th:replace="layout/layout :: footer"/>
+    </body>
+</html>
